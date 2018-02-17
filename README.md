@@ -6,7 +6,6 @@
 - [Use it](#use-it)
     - [JSON output](#json-output)
     - [Template output](#template-output)
-- [Example](#example)
 - [Comments](https://github.com/sgreben/url/issues/1)
 
 
