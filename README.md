@@ -17,7 +17,21 @@ Using go get:
 go get -u github.com/sgreben/url/cmd/url
 ```
 
-Or [download the binary](https://github.com/sgreben/url/releases/latest) from the releases page.
+Or [download the binary](https://github.com/sgreben/url/releases/latest) from the releases page. 
+
+```bash
+# Linux
+curl -LO https://github.com/sgreben/url/releases/download/1.0.0/url_1.0.0_linux_x86_64.zip
+unzip url_1.0.0_linux_x86_64.zip
+
+# OS X
+curl -LO https://github.com/sgreben/url/releases/download/1.0.0/url_1.0.0_osx_x86_64.zip
+unzip url_1.0.0_osx_x86_64.zip
+
+# Windows
+curl -LO https://github.com/sgreben/surl/releases/download/1.0.0/url_1.0.0_windows_x86_64.zip
+unzip url_1.0.0_windows_x86_64.zip
+```
 
 Also available as a [docker image](https://quay.io/repository/sergey_grebenshchikov/url?tab=tags):
 
