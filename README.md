@@ -1,6 +1,6 @@
 # url - command-line URL parser
 
-`url` parses its arguments as URLs and prints a structured representation (JSON or go templates) to stdout.
+`url` parses its arguments as URLs and prints a structured representation (JSON or go template) to stdout.
 
 - [Get it](#get-it)
 - [Use it](#use-it)
