@@ -103,7 +103,7 @@ The fields available to the template are specified in the [`flatURL` struct](cmd
 
 ### Setting URL components
 
-You can modify the URLs before they are printed using the `-set-*` parameters. This probably most useful together the with `-p` (plain URL) output:
+You can modify the URLs before they are printed using the `-set-*` parameters. This probably most useful together with the `-p` (plain URL) output:
 
 ```bash
 $ url -p -set-port 443 https://github.com/sgreben/url/cmd/url
