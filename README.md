@@ -113,6 +113,16 @@ $ url -p -set-port 443 https://github.com/sgreben/url/cmd/url
 https://github.com:443/sgreben/url/cmd/url
 ```
 
+This can also be used to build URLs:
+
+```bash
+$ url -p -set-host github.com -set-scheme https -set-path /sgreben/url/cmd/url ""
+```
+
+```text
+https://github.com/sgreben/url/cmd/url
+```
+
 ## Comments
 
 Feel free to [leave a comment](https://github.com/sgreben/url/issues/1) or create an issue.
