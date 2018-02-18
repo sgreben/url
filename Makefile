@@ -1,4 +1,4 @@
-VERSION = 1.0.2
+VERSION = 1.0.3
 
 APP      := url
 PACKAGES := $(shell go list -f {{.Dir}} ./...)
@@ -9,6 +9,7 @@ GOFILES  := $(wildcard $(GOFILES))
 
 # go get -u github.com/github/hub
 release: zip
+	git push
 	hub release delete $(VERSION) || true
 	hub release create $(VERSION) -m "$(VERSION)" -a release/$(APP)_$(VERSION)_osx_x86_64.zip -a release/$(APP)_$(VERSION)_windows_x86_64.zip -a release/$(APP)_$(VERSION)_linux_x86_64.zip
 
