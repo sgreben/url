@@ -39,6 +39,12 @@ Also available as a [docker image](https://quay.io/repository/sergey_grebenshchi
 docker pull quay.io/sergey_grebenshchikov/url
 ```
 
+Or using [docker-get](https://github.com/32b/docker-get):
+
+```bash
+docker-get https://github.com/sgreben/url
+```
+
 ## Use it
 
 `url` reads URLs from CLI arguments and writes to stdout.
