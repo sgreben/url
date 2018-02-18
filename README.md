@@ -6,8 +6,8 @@
 - [Use it](#use-it)
     - [JSON output](#json-output)
     - [Template output](#template-output)
+    - [Setting URL components](#setting-url-components)
 - [Comments](https://github.com/sgreben/url/issues/1)
-
 
 ## Get it
 
@@ -29,7 +29,7 @@ curl -LO https://github.com/sgreben/url/releases/download/1.0.0/url_1.0.0_osx_x8
 unzip url_1.0.0_osx_x86_64.zip
 
 # Windows
-curl -LO https://github.com/sgreben/surl/releases/download/1.0.0/url_1.0.0_windows_x86_64.zip
+curl -LO https://github.com/sgreben/url/releases/download/1.0.0/url_1.0.0_windows_x86_64.zip
 unzip url_1.0.0_windows_x86_64.zip
 ```
 
@@ -45,15 +45,35 @@ docker pull quay.io/sergey_grebenshchikov/url
 
 ```text
 Usage of url:
-  -r    alias for -resolve
-  -resolve
-        resolve ../ in URLs
+  Usage of url:
   -t string
-        alias for -template
+    	alias for -template
   -template string
-        go template output
+    	go template output
+  -p	alias for -plain
+  -plain
+    	plain URL output (useful with -set-* flags)
+  -r	alias for -resolve
+  -resolve
+    	resolve ../ in URLs
+  -set-fragment value
+    	set the fragment component
+  -set-host value
+    	set the host component
+  -set-hostname value
+    	set the hostname component
+  -set-opaque value
+    	set the opaque component
+  -set-path value
+    	set the path component
+  -set-port value
+    	set the port component
+  -set-query value
+    	set the (raw) query component
+  -set-scheme value
+    	set the scheme component
   -version
-        print version and exit
+    	print version and exit
 ```
 
 ### JSON output
@@ -81,6 +101,18 @@ github.com
 ```
 
 The fields available to the template are specified in the [`flatURL` struct](cmd/url/main.go#L15).
+
+### Setting URL components
+
+You can modify the URLs before they are printed using the `-set-*` parameters. This probably most useful together the with `-p` (plain URL) output:
+
+```bash
+$ url -p -set-port 443 https://github.com/sgreben/url/cmd/url
+```
+
+```text
+https://github.com:443/sgreben/url/cmd/url
+```
 
 ## Comments
 
