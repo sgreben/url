@@ -45,7 +45,6 @@ docker pull quay.io/sergey_grebenshchikov/url
 
 ```text
 Usage of url:
-  Usage of url:
   -t string
     	alias for -template
   -template string
