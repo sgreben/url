@@ -13,20 +13,42 @@ import (
 
 type values map[string]interface{}
 
+type Userinfo struct {
+	Username    string
+	UsernameSet bool
+	Password    string
+	PasswordSet bool
+}
+
+func (i *Userinfo) fromURLUserinfo(u *url.Userinfo) {
+	i.Username = u.Username()
+	i.Password, i.PasswordSet = u.Password()
+}
+
+func (i *Userinfo) toURLUserinfo() *url.Userinfo {
+	if i.PasswordSet {
+		return url.UserPassword(i.Username, i.Password)
+	}
+	if i.UsernameSet {
+		return url.User(i.Username)
+	}
+	return nil
+}
+
 type flatURL struct {
-	Scheme         string        `json:"scheme"`
-	User           *url.Userinfo `json:"user,omitempty"`
-	Hostname       string        `json:"hostname"`
-	Host           string        `json:"host"`
-	Path           string        `json:"path"`
-	PathComponents []string      `json:"pathComponents"`
-	RawQuery       string        `json:"rawQuery,omitempty"`
-	Query          values        `json:"query"`
-	Port           string        `json:"port"`
-	Fragment       string        `json:"fragment"`
-	Opaque         string        `json:"opaque,omitempty"`
-	RawPath        string        `json:"-"`
-	ForceQuery     bool          `json:"-"`
+	Scheme         string   `json:"scheme"`
+	User           Userinfo `json:"user,omitempty"`
+	Hostname       string   `json:"hostname"`
+	Host           string   `json:"host"`
+	Path           string   `json:"path"`
+	PathComponents []string `json:"pathComponents"`
+	RawQuery       string   `json:"rawQuery,omitempty"`
+	Query          values   `json:"query"`
+	Port           string   `json:"port"`
+	Fragment       string   `json:"fragment"`
+	Opaque         string   `json:"opaque,omitempty"`
+	RawPath        string   `json:"-"`
+	ForceQuery     bool     `json:"-"`
 }
 
 type setField struct {
@@ -57,14 +79,18 @@ func (s *stringOrNil) Set(v string) error {
 }
 
 type setFields struct {
-	setScheme   stringOrNil
-	setHostname stringOrNil
-	setHost     stringOrNil
-	setPath     stringOrNil
-	setRawQuery stringOrNil
-	setPort     stringOrNil
-	setFragment stringOrNil
-	setOpaque   stringOrNil
+	setScheme     stringOrNil
+	setHostname   stringOrNil
+	setUsername   stringOrNil
+	setNoUsername bool
+	setPassword   stringOrNil
+	setNoPassword bool
+	setHost       stringOrNil
+	setPath       stringOrNil
+	setRawQuery   stringOrNil
+	setPort       stringOrNil
+	setFragment   stringOrNil
+	setOpaque     stringOrNil
 }
 
 type configuration struct {
@@ -91,6 +117,10 @@ func init() {
 	flag.BoolVar(&config.resolve, "r", false, "alias for -resolve")
 	flag.Var(&config.setScheme, "set-scheme", "set the scheme component")
 	flag.Var(&config.setHost, "set-host", "set the host component")
+	flag.Var(&config.setUsername, "set-username", "set the username component")
+	flag.BoolVar(&config.setNoUsername, "set-no-username", false, "set the username component")
+	flag.Var(&config.setPassword, "set-password", "set the password component")
+	flag.BoolVar(&config.setNoPassword, "set-no-password", false, "set the password component")
 	flag.Var(&config.setPath, "set-path", "set the path component")
 	flag.Var(&config.setHostname, "set-hostname", "set the hostname component")
 	flag.Var(&config.setPort, "set-port", "set the port component")
@@ -202,10 +232,12 @@ func main() {
 			}
 		}
 
+		user := Userinfo{}
+		user.fromURLUserinfo(rawURL.User)
 		u := flatURL{
 			Scheme:         rawURL.Scheme,
 			Opaque:         rawURL.Opaque,
-			User:           rawURL.User,
+			User:           user,
 			Host:           rawURL.Host,
 			Hostname:       rawURL.Hostname(),
 			Path:           rawURL.Path,
@@ -217,6 +249,26 @@ func main() {
 			ForceQuery:     rawURL.ForceQuery,
 			Port:           rawURL.Port(),
 		}
+
+		if config.setUsername.value != nil {
+			b.Reset()
+			config.setUsername.template.Execute(b, rawURL)
+			u.User.Username = b.String()
+			u.User.UsernameSet = true
+		}
+		if config.setNoUsername {
+			u.User.UsernameSet = false
+		}
+		if config.setPassword.value != nil {
+			b.Reset()
+			config.setPassword.template.Execute(b, rawURL)
+			u.User.Password = b.String()
+			u.User.PasswordSet = true
+		}
+		if config.setNoPassword {
+			u.User.PasswordSet = false
+		}
+		rawURL.User = u.User.toURLUserinfo()
 
 		if config.plain {
 			os.Stdout.Write([]byte(rawURL.String()))

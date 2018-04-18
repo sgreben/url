@@ -21,28 +21,22 @@ Or [download the binary](https://github.com/sgreben/url/releases/latest) from th
 
 ```bash
 # Linux
-curl -LO https://github.com/sgreben/url/releases/download/1.0.4/url_1.0.4_linux_x86_64.zip
-unzip url_1.0.4_linux_x86_64.zip
+curl -LO https://github.com/sgreben/url/releases/download/1.1.0/url_1.1.0_linux_x86_64.zip
+unzip url_1.1.0_linux_x86_64.zip
 
 # OS X
-curl -LO https://github.com/sgreben/url/releases/download/1.0.4/url_1.0.4_osx_x86_64.zip
-unzip url_1.0.4_osx_x86_64.zip
+curl -LO https://github.com/sgreben/url/releases/download/1.1.0/url_1.1.0_osx_x86_64.zip
+unzip url_1.1.0_osx_x86_64.zip
 
 # Windows
-curl -LO https://github.com/sgreben/url/releases/download/1.0.4/url_1.0.4_windows_x86_64.zip
-unzip url_1.0.4_windows_x86_64.zip
+curl -LO https://github.com/sgreben/url/releases/download/1.1.0/url_1.1.0_windows_x86_64.zip
+unzip url_1.1.0_windows_x86_64.zip
 ```
 
 Also available as a [docker image](https://quay.io/repository/sergey_grebenshchikov/url?tab=tags):
 
 ```bash
 docker pull quay.io/sergey_grebenshchikov/url
-```
-
-Or using [docker-get](https://github.com/32b/docker-get):
-
-```bash
-docker-get https://github.com/sgreben/url
 ```
 
 ## Use it
@@ -77,6 +71,12 @@ Usage of url:
     	set the (raw) query component
   -set-scheme value
     	set the scheme component
+  -set-username value
+  -set-no-username
+        set the username component
+  -set-password value
+  -set-no-password
+        set the password component
   -version
     	print version and exit
 ```
