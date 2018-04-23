@@ -14,10 +14,10 @@ import (
 type values map[string]interface{}
 
 type Userinfo struct {
-	Username    string
-	UsernameSet bool
-	Password    string
-	PasswordSet bool
+	Username    string `json:"username,omitempty"`
+	UsernameSet bool   `json:"usernameSet,omitempty"`
+	Password    string `json:"password,omitempty"`
+	PasswordSet bool   `json:"passwordSet,omitempty"`
 }
 
 func (i *Userinfo) fromURLUserinfo(u *url.Userinfo) {
@@ -26,6 +26,9 @@ func (i *Userinfo) fromURLUserinfo(u *url.Userinfo) {
 }
 
 func (i *Userinfo) toURLUserinfo() *url.Userinfo {
+	if i == nil {
+		return nil
+	}
 	if i.PasswordSet {
 		return url.UserPassword(i.Username, i.Password)
 	}
@@ -36,19 +39,19 @@ func (i *Userinfo) toURLUserinfo() *url.Userinfo {
 }
 
 type flatURL struct {
-	Scheme         string   `json:"scheme"`
-	User           Userinfo `json:"user,omitempty"`
-	Hostname       string   `json:"hostname"`
-	Host           string   `json:"host"`
-	Path           string   `json:"path"`
-	PathComponents []string `json:"pathComponents"`
-	RawQuery       string   `json:"rawQuery,omitempty"`
-	Query          values   `json:"query"`
-	Port           string   `json:"port"`
-	Fragment       string   `json:"fragment"`
-	Opaque         string   `json:"opaque,omitempty"`
-	RawPath        string   `json:"-"`
-	ForceQuery     bool     `json:"-"`
+	Scheme         string    `json:"scheme"`
+	User           *Userinfo `json:"user,omitempty"`
+	Hostname       string    `json:"hostname"`
+	Host           string    `json:"host"`
+	Path           string    `json:"path"`
+	PathComponents []string  `json:"pathComponents"`
+	RawQuery       string    `json:"rawQuery,omitempty"`
+	Query          values    `json:"query,omitempty"`
+	Port           string    `json:"port,omitempty"`
+	Fragment       string    `json:"fragment,omitempty"`
+	Opaque         string    `json:"opaque,omitempty"`
+	RawPath        string    `json:"-"`
+	ForceQuery     bool      `json:"-"`
 }
 
 type setField struct {
@@ -232,8 +235,11 @@ func main() {
 			}
 		}
 
-		user := Userinfo{}
+		user := &Userinfo{}
 		user.fromURLUserinfo(rawURL.User)
+		if rawURL.User == nil {
+			user = nil
+		}
 		u := flatURL{
 			Scheme:         rawURL.Scheme,
 			Opaque:         rawURL.Opaque,

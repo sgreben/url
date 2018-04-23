@@ -2,6 +2,9 @@
 
 `url` parses its arguments as URLs and prints a structured representation (JSON or go template) to stdout.
 
+![print output](docs/print.png)
+![JSON output](docs/json.png)
+
 - [Get it](#get-it)
 - [Use it](#use-it)
     - [JSON output](#json-output)
@@ -21,16 +24,16 @@ Or [download the binary](https://github.com/sgreben/url/releases/latest) from th
 
 ```bash
 # Linux
-curl -LO https://github.com/sgreben/url/releases/download/1.1.0/url_1.1.0_linux_x86_64.zip
-unzip url_1.1.0_linux_x86_64.zip
+curl -LO https://github.com/sgreben/url/releases/download/1.1.1/url_1.1.1_linux_x86_64.zip
+unzip url_1.1.1_linux_x86_64.zip
 
 # OS X
-curl -LO https://github.com/sgreben/url/releases/download/1.1.0/url_1.1.0_osx_x86_64.zip
-unzip url_1.1.0_osx_x86_64.zip
+curl -LO https://github.com/sgreben/url/releases/download/1.1.1/url_1.1.1_osx_x86_64.zip
+unzip url_1.1.1_osx_x86_64.zip
 
 # Windows
-curl -LO https://github.com/sgreben/url/releases/download/1.1.0/url_1.1.0_windows_x86_64.zip
-unzip url_1.1.0_windows_x86_64.zip
+curl -LO https://github.com/sgreben/url/releases/download/1.1.1/url_1.1.1_windows_x86_64.zip
+unzip url_1.1.1_windows_x86_64.zip
 ```
 
 Also available as a [docker image](https://quay.io/repository/sergey_grebenshchikov/url?tab=tags):
