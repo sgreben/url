@@ -201,9 +201,9 @@ func main() {
 			hostname := rawURL.Hostname()
 			b.Reset()
 			config.setPort.template.Execute(b, rawURL)
-			rawURL.Host = ":" + b.String()
-			if hostname != "" {
-				rawURL.Host = hostname + rawURL.Host
+			port := b.String()
+			if port != "" {
+				rawURL.Host = hostname + ":" + port
 			}
 		}
 		if config.setPath.value != nil {
