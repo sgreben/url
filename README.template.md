@@ -24,14 +24,14 @@ Or [download the binary](https://github.com/sgreben/url/releases/latest) from th
 
 ```bash
 # Linux
-curl -L https://github.com/sgreben/url/releases/download/1.1.3/url_1.1.3_linux_x86_64.tar.gz | tar xz
+curl -L https://github.com/sgreben/url/releases/download/${VERSION}/url_${VERSION}_linux_x86_64.tar.gz | tar xz
 
 # OS X
-curl -L https://github.com/sgreben/url/releases/download/1.1.3/url_1.1.3_osx_x86_64.tar.gz | tar xz
+curl -L https://github.com/sgreben/url/releases/download/${VERSION}/url_${VERSION}_osx_x86_64.tar.gz | tar xz
 
 # Windows
-curl -LO https://github.com/sgreben/url/releases/download/1.1.3/url_1.1.3_windows_x86_64.zip
-unzip url_1.1.3_windows_x86_64.zip
+curl -LO https://github.com/sgreben/url/releases/download/${VERSION}/url_${VERSION}_windows_x86_64.zip
+unzip url_${VERSION}_windows_x86_64.zip
 ```
 
 Also available as a [docker image](https://quay.io/repository/sergey_grebenshchikov/url?tab=tags):
